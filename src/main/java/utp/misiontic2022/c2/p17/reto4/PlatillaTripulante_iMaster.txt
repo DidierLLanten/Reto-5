@@ -1,0 +1,336 @@
+/*
+ * Pueda usar esta plantilla para la carga del reto a iMaster
+ * Copie las clases de los paquetes Modelo, Vista, Controlador y Util
+ * No incluya los import de los archivos .java solo las clases
+ */
+// Importaciones necesarias en iMaster
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+// Util (No modificar)
+class JDBCUtilities {
+    private static final String DATABASE_LOCATION = "ProyectosConstruccion.db";
+
+    public static Connection getConnection() throws SQLException {
+        String url = "jdbc:sqlite:"+DATABASE_LOCATION;
+
+        return DriverManager.getConnection(url);
+    }
+}
+
+// Remplace en adelante por las clases de sus archivos .java
+
+// Vista
+class VistaRequerimientos {
+
+    public static final ControladorRequerimientos controlador = new ControladorRequerimientos();
+
+    public static void requerimiento1() {
+        try {
+            
+            ArrayList<Requerimiento_1> lideres = controlador.consultarRequerimiento1();
+            lideres.forEach(System.out::println);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static void requerimiento2() {
+        try {
+            
+            ArrayList<Requerimiento_2> materiales = controlador.consultarRequerimiento2();
+            materiales.forEach(System.out::println);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static void requerimiento3() {
+        try {
+            
+            ArrayList<Requerimiento_3> proyectos = controlador.consultarRequerimiento3();
+            proyectos.forEach(System.out::println);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+}
+
+// Controlador
+class ControladorRequerimientos {
+
+    public ArrayList<Requerimiento_1> consultarRequerimiento1() throws SQLException {
+        Requerimiento_1Dao rq1 = new Requerimiento_1Dao();
+        return rq1.requerimiento1();
+    }
+
+    public ArrayList<Requerimiento_2> consultarRequerimiento2() throws SQLException {
+        Requerimiento_2Dao rq2 = new Requerimiento_2Dao();
+        return rq2.requerimiento2();
+    }
+
+    public ArrayList<Requerimiento_3> consultarRequerimiento3() throws SQLException {
+
+        Requerimiento_3Dao rq3 = new Requerimiento_3Dao();
+        return rq3.requerimiento3();
+    }
+}
+
+// Modelo
+// VO
+class Requerimiento_1 {
+    
+    private String lider;
+    private String cargo;
+    private Integer cantidadProyectos;
+
+    public Requerimiento_1() {
+        this.lider = "Ninguno";
+        this.cargo = "Sin cargo";
+        this.cantidadProyectos = 0;
+    }
+
+    public Requerimiento_1(String lider, String cargo, Integer cantidadProyectos) {
+        this.lider = lider;
+        this.cargo = cargo;
+        this.cantidadProyectos = cantidadProyectos;
+    }
+
+    public String getLider() {
+        return lider;
+    }
+
+    public void setLider(String lider) {
+        this.lider = lider;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public Integer getCantidadProyectos() {
+        return cantidadProyectos;
+    }
+
+    public void setCantidadProyectos(Integer cantidadProyectos) {
+        this.cantidadProyectos = cantidadProyectos;
+    }
+
+    @Override
+    public String toString() {
+        return lider + " " + cargo + " " + cantidadProyectos;
+    }
+}
+
+class Requerimiento_2 {
+    
+    private Integer id;
+    private String material;
+    private Integer amount;
+    private Integer unitaryPrice;
+    private Integer totalPrice;
+
+    public Requerimiento_2() {
+        this.id = 0;
+        this.material = "Unknown";
+        this.amount = 0;
+        this.unitaryPrice = 0;
+        this.totalPrice = 0;
+    }
+
+    public Requerimiento_2(Integer id, String material, Integer amount, Integer unitaryPrice, Integer totalPrice) {
+        this.id = id;
+        this.material = material;
+        this.amount = amount;
+        this.unitaryPrice = unitaryPrice;
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getmaterial() {
+        return material;
+    }
+
+    public void setmaterial(String material) {
+        this.material = material;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Integer getUnitaryPrice() {
+        return unitaryPrice;
+    }
+
+    public void setUnitaryPrice(Integer unitaryPrice) {
+        this.unitaryPrice = unitaryPrice;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return this.id + " " + this.material + " " + this.amount + " " +this.unitaryPrice + " " +this.totalPrice ;
+    }
+}
+
+class Requerimiento_3 {
+    
+    private Integer id;
+    private String city;
+    private String classification;
+    private Integer cost;
+    
+    public Requerimiento_3() {
+        this.id = 0;
+        this.city = "unknown";
+        this.classification = "empty";
+        this.cost = 0;
+    }
+    
+    public Requerimiento_3(Integer id, String city, String classification, Integer cost) {
+        this.id = id;
+        this.city = city;
+        this.classification = classification;
+        this.cost = cost;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return this.id + " " + this.city + " " + this.classification + " " + this.cost;
+    }
+}
+
+// DAO
+class Requerimiento_1Dao  {
+    public ArrayList<Requerimiento_1> requerimiento1() throws SQLException {
+
+        ArrayList<Requerimiento_1> lideres = new ArrayList<>();
+        String sqlConsulta = "SELECT l.Nombre ||' ' || l.Primer_Apellido AS Lider, l.Cargo, COUNT(p.ID_Lider) AS '# Proyectos' FROM Proyecto p JOIN Lider l USING (ID_Lider) WHERE p.Constructora = 'Pegaso' GROUP BY l.ID_Lider ORDER BY l.Cargo, Lider ;";
+
+        try (
+            Connection connection = JDBCUtilities.getConnection();
+            Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery(sqlConsulta);
+            ) {
+                while(rs.next()){
+                    Requerimiento_1 auxLider = new Requerimiento_1();
+                    auxLider.setLider(rs.getString("Lider"));
+                    auxLider.setCargo(rs.getString("Cargo"));
+                    auxLider.setCantidadProyectos(rs.getInt("# Proyectos"));                   
+
+                    lideres.add(auxLider);
+                }
+        } 
+        return lideres;
+    }
+}
+
+class Requerimiento_2Dao {
+    public ArrayList<Requerimiento_2> requerimiento2() throws SQLException {
+        
+        ArrayList<Requerimiento_2> materiales = new ArrayList<>();
+        String sqlConsulta = "SELECT mc.ID_MaterialConstruccion , mc.Nombre_Material , c.Cantidad , mc.Precio_Unidad , c.Cantidad * mc.Precio_Unidad AS 'Precio_Total' FROM MaterialConstruccion mc NATURAL JOIN (Compra c NATURAL JOIN Proyecto p ) WHERE ID_Proyecto IN(14,20,18,36,45,48,56) ORDER BY ID_Proyecto , mc.Precio_Unidad DESC ;";
+
+        try (
+            Connection connection = JDBCUtilities.getConnection();
+            Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery(sqlConsulta);
+            ) {
+                while(rs.next()){
+                    Requerimiento_2 auxMaterial = new Requerimiento_2();
+                    auxMaterial.setId(rs.getInt("ID_MaterialConstruccion"));
+                    auxMaterial.setmaterial(rs.getString("Nombre_Material"));
+                    auxMaterial.setAmount(rs.getInt("Cantidad"));
+                    auxMaterial.setUnitaryPrice(rs.getInt("Precio_Unidad"));
+                    auxMaterial.setTotalPrice(rs.getInt("Precio_Total"));
+
+                    materiales.add(auxMaterial);
+                }
+        } 
+        return materiales;
+    }
+}
+
+class Requerimiento_3Dao {
+    public ArrayList<Requerimiento_3> requerimiento3() throws SQLException {
+
+        ArrayList<Requerimiento_3> proyectos = new ArrayList<>();
+        String sqlConsulta = "SELECT  c.ID_Proyecto , Ciudad , Clasificacion , SUM(mc.Precio_Unidad * c.Cantidad) AS 'Costo_Proyecto' FROM Proyecto p NATURAL JOIN (Compra c NATURAL JOIN MaterialConstruccion mc) GROUP BY Ciudad, Clasificacion , p.ID_Proyecto HAVING p.Ciudad IN('Sta. Rosa de Cabal', 'Pereira') AND Costo_Proyecto>87000 ORDER BY Ciudad , Clasificacion , p.ID_Proyecto ;";
+
+        try (
+            Connection connection = JDBCUtilities.getConnection();
+            Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery(sqlConsulta);
+            ) {
+                while(rs.next()){
+                    Requerimiento_3 auxProyecto = new Requerimiento_3();
+                    auxProyecto.setId(rs.getInt("ID_Proyecto"));
+                    auxProyecto.setCity(rs.getString("Ciudad"));
+                    auxProyecto.setClassification(rs.getString("Clasificacion"));
+                    auxProyecto.setCost(rs.getInt("Costo_Proyecto"));                   
+
+                    proyectos.add(auxProyecto);
+                }
+        } 
+        return proyectos;        
+    }
+}
